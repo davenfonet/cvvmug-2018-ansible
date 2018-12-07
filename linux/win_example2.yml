@@ -1,0 +1,23 @@
+---
+- name: setup windows users 
+  hosts: windows 
+
+  vars_prompt:
+  - name: "windows_user"
+    prompt: "Windows User Name"
+  - name: "windows_password"
+    prompt: "Windows Password"
+    private: yes
+
+
+
+
+  tasks:
+  - name: "Ensure new user {{ windows_user }} is present" 
+    win_user:
+      name: "{{ windows_user }}" 
+      password: "{{ windows_password }}" 
+      state: present
+      groups:
+       - Users
+       - Remote Desktop Users

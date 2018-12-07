@@ -1,17 +1,29 @@
 ---
-- name: Install nginx
-  hosts: host.name.ip
+- name: "Add some users with Variables"
+  hosts: linux
   become: true
 
+  tasks: 
+  - name: "get the last few lines of the user file"  
+    raw: "tail /etc/passwd"
+    register: out 
 
-- name: more complex offering to add several users
-  user:
-    name: "{{ item.name }}"
-    uid: "{{ item.uid }}"
-    groups: "{{ item.groups }}"
-    state: present
-  with_items:
-     - { name: testuser1, uid: 11002, groups: "wheel, staff" }
-     - { name: testuser2, uid: 11003, groups: staff }
+  - name: "show my users file without new users"
+    debug: var=out.stdout_lines
+  
+  - name: "more complex offering to add several users"
+    user:
+      name: "{{ item.name }}"
+      uid: "{{ item.uid }}"
+      groups: "{{ item.groups }}"
+      state: "{{ item.state }}" 
+    with_items:
+     - { name: testuser1, uid: 11002, groups: "staff", state: 'absent' }
+     - { name: testuser2, uid: 11003, groups: "staff", state: 'absent' }
 
+  - name: "get the last few lines of the user file"
+    raw: "tail /etc/passwd"
+    register: out
 
+  - name: "show my users file with new users"
+    debug: var=out.stdout_lines

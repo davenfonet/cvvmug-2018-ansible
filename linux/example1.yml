@@ -7,4 +7,5 @@
   - name: I should install arping because todd wants me too
     package:
       name: arping
-      state: absent
+      state: present
+

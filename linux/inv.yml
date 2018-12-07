@@ -1,2 +1,9 @@
 [linux] 
 172.31.35.77
+[windows] 
+172.31.25.156
+
+[windows:vars]
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+ansible_user=administrator

@@ -1,0 +1,2 @@
+#!/bin/bash
+ansible windows -i inv.yml -m win_ping -k
