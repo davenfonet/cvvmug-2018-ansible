@@ -1,0 +1,17 @@
+---
+- name: Install nginx
+  hosts: host.name.ip
+  become: true
+
+
+- name: more complex offering to add several users
+  user:
+    name: "{{ item.name }}"
+    uid: "{{ item.uid }}"
+    groups: "{{ item.groups }}"
+    state: present
+  with_items:
+     - { name: testuser1, uid: 11002, groups: "wheel, staff" }
+     - { name: testuser2, uid: 11003, groups: staff }
+
+

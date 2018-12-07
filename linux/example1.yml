@@ -1,0 +1,10 @@
+---
+- name: Install arping
+  hosts: 172.31.35.77
+  become: true
+
+tasks:
+  - name: I should install arping because todd wants me too
+    package:
+      name: arping
+      state: present
